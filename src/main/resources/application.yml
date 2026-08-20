@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: rustdesk-api
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:rustdesk}?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USER:rustdesk}
+    password: ${MYSQL_PASSWORD:rustdesk}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  jackson:
+    time-zone: UTC
+
+server:
+  port: ${SERVER_PORT:21114}
+  servlet:
+    context-path: /pda-tmnl
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+rustdesk:
+  sysinfo-version: ${RUSTDESK_SYSINFO_VERSION:1}
+  max-request-size: ${RUSTDESK_MAX_REQUEST_SIZE:65536}
